@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-require 'global.php';
+require '../global.php';
 
 use Kingsoft\Db\Documentor;
 

@@ -10,7 +10,10 @@
 ```js
 const boardId = '7493630d-d249-11ee-876c-c437729b0319';
 const boardUrl = `https://leaderboard.example.com/${boardId}/BoardScore`;
+const ScoreUrl = `https://leaderboard.example.com/${boardId}/LastScores`;
 ```
+
+
 
 ## Get
 

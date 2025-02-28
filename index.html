@@ -8,9 +8,10 @@
     <script type="module">
         const boardId = '7493630d-d249-11ee-876c-c437729b0319';
         const boardUrl = `http://leaderboard.localhost/${boardId}/BoardScore`;
+        const scoreUrl = `http://leaderboard.localhost/${boardId}/LastScores`;
 
         async function getBoardScore() {
-            const response = await fetch(boardUrl);
+            const response = await fetch(scoreUrl);
             const data = await response.json();
             const scores = data.resources;
             const template = document.getElementById('score-template');

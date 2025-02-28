@@ -1,0 +1,15 @@
+# Deny access to .ini and .htaccess files for security
+<FilesMatch "\.(?:ini|htaccess)$">
+    Require all denied
+</FilesMatch>
+
+# Enable mod_rewrite
+RewriteEngine On
+
+# Allow direct access to existing files and directories
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Redirect all other requests to /api/index.php
+RewriteRule ^ /api/index.php [L]

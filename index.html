@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="de_ch">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Board</title>
+    <script type="module">
+        const boardId = '7493630d-d249-11ee-876c-c437729b0319';
+        const boardUrl = `http://leaderboard.localhost/${boardId}/BoardScore`;
+
+        async function getBoardScore() {
+            const response = await fetch(boardUrl);
+            const data = await response.json();
+            const scores = data.resources;
+            const template = document.getElementById('score-template');
+            const table = document.querySelector('table>tbody');
+            table.innerHTML = '';
+
+            scores.forEach((score, index) => {
+                const clone = template.content.cloneNode(true);
+                const [name, scoreValue, date] = clone.querySelectorAll('td');
+                name.textContent = score.leader_name;
+                scoreValue.textContent = score.score;
+                date.textContent = score.date;
+                table.appendChild(clone);
+            });
+        }
+        async function setBoardScore() {
+            const payload = {
+                board_id: boardId,
+                leader_name: document.getElementById('name').value,
+                score: document.getElementById('score').value,
+                date: formatDate(new Date()) //(new Date(),'yyyy-MM-dd HH:mm:ss')
+            };
+            const response = await fetch(boardUrl, {
+                method: 'POST',
+                body: JSON.stringify(payload)
+            });
+            const data = await response.json();
+            getBoardScore();
+        }
+        document.getElementById('set').addEventListener('click', setBoardScore);
+        getBoardScore();
+
+        function formatDate(date) {
+            const formatter = new Intl.DateTimeFormat('en-CA', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            });
+
+            const parts = formatter.formatToParts(date);
+
+            const formattedDate = `${parts.find(p => p.type === 'year').value}-` +
+                `${parts.find(p => p.type === 'month').value}-` +
+                `${parts.find(p => p.type === 'day').value} ` +
+                `${parts.find(p => p.type === 'hour').value}:` +
+                `${parts.find(p => p.type === 'minute').value}:` +
+                `${parts.find(p => p.type === 'second').value}`;
+
+            return formattedDate;
+        }
+
+        // Example usage:
+        const now = new Date();
+        console.log(formatDate(now)); // Output: "2025-02-28 14:05:09"
+
+    </script>
+</head>
+
+<body>
+    <input type="number" id="score" placeholder="Score">
+    <input type="text" id="name" placeholder="Name">
+    <button id="set">Set Score</button>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Score</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <template id="score-template">
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </template>
+</body>
+
+</html>

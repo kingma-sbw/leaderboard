@@ -1,12 +1,8 @@
 <?php declare(strict_types=1);
 require '../global.php';
-// instead of using user-check.php, we will use the following code to check if the user is logged in or not
-// require '../inc/user-check.php';
 
 // make sure requests are not cached
 header( 'Cache-Control: no-cache, no-store, must-revalidate' );
-// and requests are secure (https)
-// max-age is in seconds, 63072000 = 2 years
 header( 'Strict-Transport-Security: max-age=63072000; includeSubDomains; preload' );
 
 use Kingsoft\Http\{StatusCode, Response};
@@ -14,6 +10,10 @@ use Kingsoft\PersistRest\{PersistRest, PersistRequest};
 use Kingsoft\Db\{Database, DatabaseException};
 use Psr\Log\LoggerInterface as Logger;
 
+/**
+ * class to check for and remove the board ID from the url
+ * 
+ */
 readonly class IdPersistRest extends PersistRest
 {
   public function __construct( PersistRequest $request, Logger $logger )
@@ -48,17 +48,21 @@ readonly class IdPersistRest extends PersistRest
         StatusCode::BadRequest->value,
         "Board UUID not found"
       );
-      if( !$this->findBoard( $boardUuid ) ) {
-        $this->logger->alert( "Board not found", [ 'url' => $_SERVER['REQUEST_URI'] ] );
-        Response::sendStatusCode( StatusCode::NotFound );
-        Response::sendMessage(
-          StatusCode::toString( StatusCode::NotFound ),
-          StatusCode::NotFound->value,
-          "Board not found"
-        );
-        return;
-      }
     }
+
+
+    // we have a board ID now check if it is correct
+    if( !$this->findBoard( $boardUuid ) ) {
+      $this->logger->alert( "Board not found", [ 'url' => $_SERVER['REQUEST_URI'] ] );
+      Response::sendStatusCode( StatusCode::BadRequest );
+      Response::sendMessage(
+        StatusCode::toString( StatusCode::BadRequest ),
+        StatusCode::NotFound->value,
+        "Board not found"
+      );
+      return;
+    }
+
     unset( $uri[1] );
 
     $_SERVER['REQUEST_URI'] = implode( '/', $uri ) . '?board_id=' . $boardUuid;
@@ -69,7 +73,7 @@ readonly class IdPersistRest extends PersistRest
   {
     try {
 
-      $sql  = "SELECT * FROM boards WHERE uuid = :uuid";
+      $sql  = "SELECT * FROM board WHERE board_id = :uuid";
       $stmt = Database::getConnection()->prepare( $sql );
       $stmt->bindParam( ':uuid', $boardUuid );
       $stmt->execute();

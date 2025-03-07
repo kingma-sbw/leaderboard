@@ -1,6 +1,7 @@
 composer.lock
 /node_modules
 /config/
+!/config/sample_settings.ini
 /vendor
 /discovered
 /logs

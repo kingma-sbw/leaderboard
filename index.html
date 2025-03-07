@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Test Board</title>
     <script type="module">
-        const boardId = '7493630d-d249-11ee-876c-c437729b0319';
-        const boardUrl = `http://leaderboard.localhost/${boardId}/BoardScore`;
-        const scoreUrl = `http://leaderboard.localhost/${boardId}/LastScores`;
+        const boardId = '575b071a-fb29-11ef-a044-3e6aea901bee';
+        const boardUrl = `http://localhost:9000/${boardId}/BoardScore`;
+        const scoreUrl = `http://localhost:9000/${boardId}/LastScores`;
 
         async function getBoardScore() {
             const response = await fetch(scoreUrl);

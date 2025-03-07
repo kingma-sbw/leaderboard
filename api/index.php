@@ -81,6 +81,7 @@ readonly class IdPersistRest extends PersistRest
     }
   }
 }
+
 try {
   $request = new PersistRequest(
     SETTINGS['api']['allowedendpoints'],

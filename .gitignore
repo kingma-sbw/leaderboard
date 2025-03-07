@@ -3,3 +3,4 @@ composer.lock
 /config/
 /vendor
 /discovered
+/logs

@@ -1,3 +1,6 @@
+# Rewrite for routing of all requests through REST controller
+RewriteEngine On
+
 # Deny access to .ini and .htaccess files for security
 <FilesMatch "\.(?:ini|htaccess)$">
     Require all denied

@@ -6,11 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Test Board</title>
     <script type="module">
-        const boardId = '7984506c-fb2b-11ef-a60e-8a5361b15745';
-        const boardUrl = `http://localhost:9080/${boardId}/BoardScore`;
-        const scoreUrl = `http://localhost:9080/${boardId}/LastScores`;
-
+        const boardId = 'A7EC7336F9183F0F30E7E77E6C';
+        const baseUrl = `http://localhost:9080/${boardId}`;
+        const boardUrl = `${baseUrl}/BoardScore`;
+        const scoreUrl = `${baseUrl}/LastScores`;
+        
         async function getBoardScore() {
+            try {
+                const response = await fetch(boardUrl);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+            } catch (error) {
+                console.error('Error fetching board score:', error);
+                return;
+            }
             const response = await fetch(scoreUrl);
             const data = await response.json();
             const scores = data.resources;
@@ -28,22 +38,41 @@
             });
         }
         async function setBoardScore() {
+            let response;
             const payload = {
                 board_id: boardId,
                 leader_name: document.getElementById('name').value,
                 score: document.getElementById('score').value,
                 date: formatDate(new Date()) //(new Date(),'yyyy-MM-dd HH:mm:ss')
             };
-            const response = await fetch(boardUrl, {
-                method: 'POST',
-                body: JSON.stringify(payload)
-            });
+            try {
+                response = await fetch(boardUrl, {
+                    method: 'POST',
+                    body: JSON.stringify(payload),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+            } catch (error) {
+                console.error('Error setting board score:', error);
+                return;
+            }
             const data = await response.json();
             getBoardScore();
         }
         document.getElementById('set').addEventListener('click', setBoardScore);
         getBoardScore();
-
+        /**
+         * Formats a date to 'YYYY-MM-DD HH:mm:ss' format.
+         * @param {Date} date - The date to format.
+         * @returns {string} - The formatted date string.
+         * @example
+         * const now = new Date();
+         * console.log(formatDate(now)); // Output: "2025-02-28 14:05:09"
+         */
         function formatDate(date) {
             const formatter = new Intl.DateTimeFormat('en-CA', {
                 year: 'numeric',
@@ -75,8 +104,8 @@
 </head>
 
 <body>
-    <input type="number" id="score" placeholder="Score">
     <input type="text" id="name" placeholder="Name">
+    <input type="number" id="score" placeholder="Score">
     <button id="set">Set Score</button>
     <table>
         <thead>
@@ -86,8 +115,7 @@
                 <th>Date</th>
             </tr>
         </thead>
-        <tbody>
-        </tbody>
+        <tbody></tbody>
     </table>
     <template id="score-template">
         <tr>
@@ -97,5 +125,120 @@
         </tr>
     </template>
 </body>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th,
+    td {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+</style>
+<details>
+    <summary> set your board id</summary>
+    <pre>
+    const boardId = 'Your board id';
+    const baseUrl = `https://board.example.com/${boardId}`;
+</pre>
+</details>
+<details>
+    <summary>get scoreboard</summary>
+    <pre>
+    const scoreUrl = `${baseUrl}/LastScores`;
+    async function getBoardScore() {
+        try {
+            const response = await fetch(boardUrl);
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+        } catch (error) {
+            console.error('Error fetching board score:', error);
+            return;
+        }
+        const data = await response.json();
+        const scores = data.resources;
+        console.log(scores);
+    }
+</pre>
+</details>
+<details>
+    <summary>set score</summary>
+    <pre>
+    const boardUrl = `$baseUrl/BoardScore`;
+    async function setBoardScore() {
+        let response;
+        const payload = {
+            board_id: boardId,
+            leader_name: "Johannes",
+            score: "10000",
+            date: formatDate(new Date()) //(new Date(),'yyyy-MM-dd HH:mm:ss')
+        };
+        try {
+            response = await fetch(boardUrl, {
+                method: 'POST',
+                body: JSON.stringify(payload),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+        } catch (error) {
+            console.error('Error setting board score:', error);
+            return;
+        }
+        const data = await response.json();
+        getBoardScore();
+    }
+    </pre>
+</details>
+<details>
+    <summary>format date</summary>
+    <pre>
+    /**
+    * Formats a date to 'YYYY-MM-DD HH:mm:ss' format.
+    * @param {Date} date - The date to format.
+    * @returns {string} - The formatted date string.
+    * @example
+    * const now = new Date();
+    * console.log(formatDate(now)); // Output: "2025-02-28 14:05:09"
+    */    
+    function formatDate(date) {
+        const formatter = new Intl.DateTimeFormat('en-CA', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: false
+        });
+
+        const parts = formatter.formatToParts(date);
+
+        const formattedDate = `${parts.find(p => p.type === 'year').value}-` +
+            `${parts.find(p => p.type === 'month').value}-` +
+            `${parts.find(p => p.type === 'day').value} ` +
+            `${parts.find(p => p.type === 'hour').value}:` +
+            `${parts.find(p => p.type === 'minute').value}:` +
+            `${parts.find(p => p.type === 'second').value}`;
+
+        return formattedDate;
+    }
+</pre>
+</details>
 
 </html>

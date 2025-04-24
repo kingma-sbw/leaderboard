@@ -1,5 +1,17 @@
 # Leaderboard api
 
+## installation
+
+```sql
+create database leaderboard;
+create user 'leader_user'@'%' identified by 'password';
+grant all privileges on leaderboard.* to 'leader_user'@'%';
+flush privileges;
+use leaderboard;
+```
+
+execute scripts in db
+
 ## preparation
 
 * get your uuid
@@ -8,7 +20,7 @@
 ## setup
 
 ```js
-const boardId = '7493630d-d249-11ee-876c-c437729b0319';
+const boardId = '2572690c-20f1-11f0-84e4-7a20bef12a9e';
 const boardUrl = `https://leaderboard.example.com/${boardId}/BoardScore`;
 const ScoreUrl = `https://leaderboard.example.com/${boardId}/LastScores`;
 ```
@@ -69,4 +81,4 @@ function formatDate(date) {
 
     return formattedDate;
 }
-``` 
+```

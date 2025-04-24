@@ -1,6 +1,5 @@
 DROP TABLE IF EXISTS `board_score`;
 
-DELIMITER #
 CREATE TABLE `board_score` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `board_id` char(36) NOT NULL,
@@ -13,5 +12,4 @@ CREATE TABLE `board_score` (
   CONSTRAINT `board_score_ibfk_1` FOREIGN KEY (`board_id`) REFERENCES `board` (`board_id`) ON DELETE CASCADE
 )
 /*  ENGINE=InnoDB  */
-AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci#
-# DELIMITER ;
+AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;

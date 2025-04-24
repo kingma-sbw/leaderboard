@@ -1,17 +1,19 @@
 <?php declare(strict_types=1);
 
+define( 'LOGROOT', ROOT . SETTINGS['log']['location'] . '/' );
+
 /* @var \Monolog\Logger $log */
 $log = new Monolog\Logger( SETTINGS['log']['name'] );
 $log->pushHandler(
 	new \Kingsoft\MonologHandler\CronRotatingFileHandler(
-		SETTINGS['log']['location'] . '/' . SETTINGS['log']['name'] . '.log',
+		LOGROOT . SETTINGS['log']['name'] . '.log',
 		Monolog\Level::fromName( SETTINGS['log']['level'] ),
 		SETTINGS['logrotate']
 	)
 );
 $log->pushHandler(
 	new Monolog\Handler\StreamHandler(
-		SETTINGS['log']['location'] . '/' . SETTINGS['log']['name'] . '_error.log',
+		LOGROOT . SETTINGS['log']['name'] . '_error.log',
 		Monolog\Logger::ERROR
 	)
 );

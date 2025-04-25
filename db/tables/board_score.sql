@@ -12,4 +12,4 @@ CREATE TABLE `board_score` (
   CONSTRAINT `board_score_ibfk_1` FOREIGN KEY (`board_id`) REFERENCES `board` (`board_id`) ON DELETE CASCADE
 )
 /*  ENGINE=InnoDB  */
-AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+AUTO_INCREMENT=59 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;

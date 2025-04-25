@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Test Board</title>
     <script type="module">
-        const boardId = 'A7EC7336F9183F0F30E7E77E6C';
-        const baseUrl = `http://localhost:9080/${boardId}`;
+        const boardId = '020E633E7752C8D9182034E14E';
+        const baseUrl = `https://leaderboard.sbw.media/${boardId}`;
         const boardUrl = `${baseUrl}/BoardScore`;
         const scoreUrl = `${baseUrl}/LastScores`;
         
@@ -147,7 +147,7 @@
     }
 </style>
 <details>
-    <summary> set your board id</summary>
+    <summary>set your board id</summary>
     <pre>
     const boardId = 'Your board id';
     const baseUrl = `https://board.example.com/${boardId}`;
@@ -241,4 +241,38 @@
 </pre>
 </details>
 
+<details>
+    <summary>get your own board id</summary>
+    <style lang="css">
+        form {
+            display: flex;
+            flex-direction: column;
+            width: 200px;
+        }
+
+        input {
+            margin-bottom: 10px;
+            padding: 5px;
+        }
+
+        button {
+            padding: 5px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+        
+    </style>
+    <form action="board-request.php" method="post">
+        <input type="text" name="board_name" placeholder="Boardname" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <button type="submit">Get Board ID</button>
+    </form>
+
+</details>
 </html>

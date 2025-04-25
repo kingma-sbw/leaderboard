@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS `board`;
 
 CREATE TABLE `board` (
-  `board_id` char(36) NOT NULL DEFAULT HEX(RANDOM_BYTES(13)),
+  `board_id` char(36) NOT NULL DEFAULT hex(random_bytes(13)),
   `board_name` varchar(255) NOT NULL,
   PRIMARY KEY (`board_id`)
 )

@@ -16,7 +16,7 @@ final class Board
 	// Persist functions
 	static public function getPrimaryKey():string { return 'board_id'; }
 	static public function isPrimaryKeyAutoIncrement():bool { return false; }
-	static public function nextPrimaryKey():string { return "board-" . bin2hex(random_bytes(12)); }
+	static public function nextPrimaryKey():string { return bin2hex(random_bytes(12)); }
 	static public function getTableName():string { return '`board`'; }
 	static public function getFields():array {
 		return [

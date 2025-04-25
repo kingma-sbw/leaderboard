@@ -54,10 +54,10 @@ class EmailNotifier
     private function sendNotification( \Sbw\Leaderboard\BoardRequest &$request, \Sbw\Leaderboard\Board &$board ): void
     {
         $body = <<<EOT
-        <h1Hallo {$request->board_name}</h1>,
-        <p>Wir haben Deine Anfrage für die Board-Reservierung erhalten.</p>
-        <p>Board Id ist: {$board->board_id}</p>
-        <p>Bitte verwenden Sie diese ID, um auf das Board zuzugreifen.</p>
+        Hallo {$request->board_name},
+        Wir haben Deine Anfrage für die Board-Reservierung erhalten.
+        Board Id ist: {$board->board_id}
+        Bitte verwenden Sie diese ID, um auf das Board zuzugreifen.
         EOT;
 
         $this->mail->Subject = "Leaderboard ID Anfrage";

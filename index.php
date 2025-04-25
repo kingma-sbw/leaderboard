@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Test Board</title>
     <script type="module">
-        const boardId = '020E633E7752C8D9182034E14E';
+        const boardId = 'f3476188bb8b7e1ab757ae2c';
         const baseUrl = `https://leaderboard.sbw.media/${boardId}`;
         const boardUrl = `${baseUrl}/BoardScore`;
         const scoreUrl = `${baseUrl}/LastScores`;
@@ -150,7 +150,7 @@
     <summary>set your board id</summary>
     <pre>
     const boardId = 'Your board id';
-    const baseUrl = `https://board.example.com/${boardId}`;
+    const baseUrl = `https://<?= $_SERVER['SERVER_NAME']?>/${boardId}`;
 </pre>
 </details>
 <details>

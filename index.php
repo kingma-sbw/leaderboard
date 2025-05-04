@@ -42,8 +42,8 @@
             const payload = {
                 board_id: boardId,
                 leader_name: document.getElementById('name').value,
-                score: document.getElementById('score').value,
-                date: formatDate(new Date()) //(new Date(),'yyyy-MM-dd HH:mm:ss')
+                score: +document.getElementById('score').value,
+                date: new Date() 
             };
             try {
                 response = await fetch(boardUrl, {
@@ -65,40 +65,6 @@
         }
         document.getElementById('set').addEventListener('click', setBoardScore);
         getBoardScore();
-        /**
-         * Formats a date to 'YYYY-MM-DD HH:mm:ss' format.
-         * @param {Date} date - The date to format.
-         * @returns {string} - The formatted date string.
-         * @example
-         * const now = new Date();
-         * console.log(formatDate(now)); // Output: "2025-02-28 14:05:09"
-         */
-        function formatDate(date) {
-            const formatter = new Intl.DateTimeFormat('en-CA', {
-                year: 'numeric',
-                month: '2-digit',
-                day: '2-digit',
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit',
-                hour12: false
-            });
-
-            const parts = formatter.formatToParts(date);
-
-            const formattedDate = `${parts.find(p => p.type === 'year').value}-` +
-                `${parts.find(p => p.type === 'month').value}-` +
-                `${parts.find(p => p.type === 'day').value} ` +
-                `${parts.find(p => p.type === 'hour').value}:` +
-                `${parts.find(p => p.type === 'minute').value}:` +
-                `${parts.find(p => p.type === 'second').value}`;
-
-            return formattedDate;
-        }
-
-        // Example usage:
-        const now = new Date();
-        console.log(formatDate(now)); // Output: "2025-02-28 14:05:09"
 
     </script>
 </head>
@@ -182,8 +148,8 @@
         const payload = {
             board_id: boardId,
             leader_name: "Johannes",
-            score: "10000",
-            date: formatDate(new Date()) //(new Date(),'yyyy-MM-dd HH:mm:ss')
+            score: 10000,
+            date: new Date()
         };
         try {
             response = await fetch(boardUrl, {
@@ -204,41 +170,6 @@
         getBoardScore();
     }
     </pre>
-</details>
-<details>
-    <summary>format date</summary>
-    <pre>
-    /**
-    * Formats a date to 'YYYY-MM-DD HH:mm:ss' format.
-    * @param {Date} date - The date to format.
-    * @returns {string} - The formatted date string.
-    * @example
-    * const now = new Date();
-    * console.log(formatDate(now)); // Output: "2025-02-28 14:05:09"
-    */    
-    function formatDate(date) {
-        const formatter = new Intl.DateTimeFormat('en-CA', {
-            year: 'numeric',
-            month: '2-digit',
-            day: '2-digit',
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit',
-            hour12: false
-        });
-
-        const parts = formatter.formatToParts(date);
-
-        const formattedDate = `${parts.find(p => p.type === 'year').value}-` +
-            `${parts.find(p => p.type === 'month').value}-` +
-            `${parts.find(p => p.type === 'day').value} ` +
-            `${parts.find(p => p.type === 'hour').value}:` +
-            `${parts.find(p => p.type === 'minute').value}:` +
-            `${parts.find(p => p.type === 'second').value}`;
-
-        return formattedDate;
-    }
-</pre>
 </details>
 
 <details>

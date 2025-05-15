@@ -57,4 +57,3 @@ async function setBoardScore() {
 }
 document.getElementById('set').addEventListener('click', setBoardScore);
 getBoardScore();
-

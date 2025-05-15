@@ -23,11 +23,7 @@ readonly class IdPersistRest extends PersistRest
 
   public function handleRequest(): void
   {
-    // if we have a option request we don't need to check for the board ID
-    if( $_SERVER['REQUEST_METHOD'] === 'OPTIONS' ) {
-      parent::handleRequest();
-      return;
-    }
+
     // extract UUID from request
     if( null === $path = parse_url( str_replace( '\\\\', '\\', $_SERVER['REQUEST_URI'] ), PHP_URL_PATH ) ) {
       $this->logger->alert( "URL parse error", [ 'url' => $_SERVER['REQUEST_URI'] ] );

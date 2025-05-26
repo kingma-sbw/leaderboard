@@ -10,5 +10,4 @@ select `board_score`.`id` AS `id`,
     `board_score`.`score` AS `score`,
     `board_score`.`date` AS `date`
 from `board_score`
-order by `board_score`.`score` desc
-limit 10;
+order by `board_score`.`score` desc;

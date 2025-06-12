@@ -62,7 +62,7 @@
     <details>
         <summary>set score</summary>
         <pre>
-    const boardUrl = `$baseUrl/BoardScore`;
+    const boardUrl = `${baseUrl}/BoardScore`;
     async function setBoardScore() {
         let response;
         const payload = {

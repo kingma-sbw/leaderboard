@@ -49,13 +49,14 @@
             if (!response.ok) {
                 throw new Error('Network response was not ok ' + response.statusText);
             }
+            const data = await response.json();
+            const scores = data.resources;
+            console.log(scores);
+            return scores;
         } catch (error) {
             console.error('Error fetching board score:', error);
             return;
         }
-        const data = await response.json();
-        const scores = data.resources;
-        console.log(scores);
     }
 </pre>
     </details>
